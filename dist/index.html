@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="styles/index.css" />
+    <title>Frontend Mentor | Multi-step form</title>
+  </head>
+  <body>
+    <main class="card">
+      <div class="container">
+        <div class="sidebar">
+          <nav class="steps">
+            <div>
+              <button class="btn">1</button>
+              <span class="step_detail">
+                <p class="no">STEP 1</p>
+                <p class="name">Your Info</p>
+              </span>
+            </div>
+            <div>
+              <button class="btn">2</button>
+              <span class="step_detail">
+                <p class="no">STEP 2</p>
+                <p class="name">Select plan</p>
+              </span>
+            </div>
+            <div>
+              <button class="btn">3</button>
+              <span class="step_detail">
+                <p class="no">STEP 3</p>
+                <p class="name">Add-ons</p>
+              </span>
+            </div>
+            <div>
+              <button class="btn">4</button>
+              <span class="step_detail">
+                <p class="no">STEP 4</p>
+                <p class="name">Summary</p>
+              </span>
+            </div>
+          </nav>
+        </div>
+        <div class="steps_automation">
+          <div class="step_1">
+           <div class="form">
+            <h1>Personal info</h1>
+            <h4>Please provide your name, email address, and phone number.</h4>
+            <form class="iform">
+              <span
+                ><label for="name">Name</label
+                ><label for="name" id="err_1">This field is required</label></span
+              >
+              <input id="name" placeholder="e.g.Stephen King" />
+              <span
+                ><label for="email">Email Address</label
+                ><label for="email" id="err_2">This field is required</label></span
+              >
+              <input id="email" placeholder="e.g.stephenking@lorem.com" />
+              <span
+                ><label for="phone">Phone Number</label
+                ><label for="phone" id="err_3">This field is required</label></span
+              >
+              <input
+                id="phone"
+                placeholder="e.g. +1 234 567 890
+              "
+              />
+            </form>
+           </div>
+            <div class="step_btn right">
+              <button type="button" id="prevBtn" onclick="nextPrev(-1)">
+                Go Back
+              </button>
+              <button type="button" id="nextBtn" onclick="nextPrev(1)">
+                Next Step
+              </button>
+            </div>
+          </div>
+          <div class="step_2">
+           <div class="form">
+            <h1>Select your plan</h1>
+            <h4>You have the option of monthly or yearly billing.</h4>
+            <div class="bill_options">
+              <button class="bill_opt1">
+                <span class="icon">
+                  <img src="./assets/images/icon-arcade.svg" alt="" />
+                </span>
+                <span class="detail">
+                  <p>Arcade</p>
+                  <p>$9/mo</p>
+                </span>
+              </button>
+              <button class="bill_opt2">
+                <span class="icon">
+                  <img src="./assets/images/icon-advanced.svg" alt="" />
+                </span>
+                <span class="detail">
+                  <p>Advanced</p>
+                  <p>$12/mo</p>
+                </span>
+              </button>
+              <button class="bill_opt3">
+                <span class="icon">
+                  <img src="./assets/images/icon-pro.svg" alt="" />
+                </span>
+                <span class="detail">
+                  <p>Pro</p>
+                  <p>$15/mo</p>
+                </span>
+              </button>
+              <div class="switch-opt">
+                <p>Monthly</p>
+                <label class="switch">
+                  <input type="checkbox" id="checkbox" />
+                  <span class="slider round"></span>
+                </label>
+                <p>Yearly</p>
+              </div>
+            </div>
+           </div>
+            <div class="step_btn space">
+              <button type="button" id="prevBtn" onclick="nextPrev(-1)">
+                Go Back
+              </button>
+              <button type="button" id="nextBtn" onclick="nextPrev(1)">
+                Next Step
+              </button>
+            </div>
+          </div>
+          <div class="step_3">
+            <div class="form">
+              <h1>Pick add-ons</h1>
+            <h4>Add-ons help enhance your gaming experience.</h4>
+            <div class="addons_list">
+              <div class="addon">
+                <div>
+                  <label for="o_s" class="cont">
+                    <input type="checkbox" name="o_s" id="o_s"/>
+                    <span class="checkmark"></span>
+                  </label>
+                  <span>
+                    <p>Online service</p>
+                    <p>Access to multiplayer games</p>
+                  </span>
+                </div>
+                <span class="amt"> +$1/mo </span>
+              </div>
+              <div class="addon">
+                <div>
+                  <label for="l_s" class="cont">
+                    <input type="checkbox" name="l_s" id="l_s"/>
+                    <span class="checkmark"></span>
+                  </label>
+                  <span>
+                    <p>Larger storage</p>
+                    <p>Extra 1TB of cloud save</p>
+                  </span>
+                </div>
+                <span class="amt"> +$2/mo </span>
+              </div>
+              <div class="addon">
+                <div>
+                  <label for="c_p" class="cont">
+                    <input type="checkbox" name="c_p" id="c_p"/>
+                    <span class="checkmark"></span>
+                  </label>
+                  <span>
+                    <p>Customizable Profile</p>
+                    <p>Custom theme on your profile</p>
+                  </span>
+                </div>
+                <span class="amt"> +$2/mo </span>
+              </div>
+            </div>
+            </div>
+            <div class="step_btn space">
+              <button type="button" id="prevBtn" onclick="nextPrev(-1)">
+                Go Back
+              </button>
+              <button type="button" id="nextBtn" onclick="nextPrev(1)">
+                Next Step
+              </button>
+            </div>
+          </div>
+          <div class="step_4">
+            <div class="form">
+              <h1>Finishing up</h1>
+            <h4>Double-check everything looks OK before confirming.</h4>
+            <div class="selections">
+              <div id="g_s">
+                <div class="plan">
+                  <span>
+                    <p class="desc"></p>
+                  <button id="cnange">change</button>
+                  </span>
+                  <p class="amt"></p>
+                </div>
+              </div>
+              <hr class="divider">
+              <div class="addons" id="g_a">
+                <div class="addon">
+                  <p class="name"></p>
+                  <p class="amt"></p>
+                </div>
+              </div>
+            </div>
+            <div class="total" id="tot">
+              <p class="t_l"></p>
+              <p class="number"></p>
+            </div>
+            </div>
+            <div class="step_btn space">
+              <button type="button" id="prevBtn" onclick="nextPrev(-1)">
+                Go Back
+              </button>
+              <button type="button" id="nextBtn" onclick="nextPrev(1)">
+                Submit
+              </button>
+            </div>
+          </div>
+          <div class="step_5">
+            <div class="thk_form">
+              <span class="icon">
+                <img src="./assets/images/icon-thank-you.svg" alt="Thank_You" />
+              </span>
+              <h1>Thank you!</h1>
+              <h4>
+                Thanks for confirming your subscription! We hope you have fun
+                using our platform. If you ever need support, please feel free to
+                email us at support@loremgaming.com.
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="../dist/index.js"></script>
+  </body>
+</html>

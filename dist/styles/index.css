@@ -1,0 +1,674 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap");
+html {
+  /* 1rem = 10px */
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  font-family: "Ubuntu", sans-serif;
+  --marineblue: hsl(213, 96%, 18%);
+  --purplishblue: hsl(243, 100%, 62%);
+  --pastelblue: hsl(228, 100%, 84%);
+  --lightblue: hsl(206, 94%, 87%);
+  --strawberryred: hsl(354, 84%, 57%);
+  --white: hsl(0, 0%, 100%);
+  --coolgray: hsl(231, 11%, 63%);
+  --lightgray: hsl(229, 24%, 87%);
+  --magnolia: hsl(217, 100%, 97%);
+  --alabaster: hsl(231, 100%, 99%);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: hsl(228deg, 100%, 84%);
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@-webkit-keyframes myAnim {
+  0% {
+    opacity: 0;
+    transform: translateX(-250px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes myAnim {
+  0% {
+    opacity: 0;
+    transform: translateX(-250px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.slide_left {
+  -webkit-animation: myAnim 1s ease 0s 1 normal forwards;
+          animation: myAnim 1s ease 0s 1 normal forwards;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  -webkit-animation: bblFadInOut 1.8s infinite ease-in-out;
+          animation: bblFadInOut 1.8s infinite ease-in-out;
+}
+
+.loader {
+  color: #FFF;
+  font-size: 7px;
+  position: relative;
+  text-indent: -9999em;
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+          animation-delay: -0.16s;
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  top: 0;
+}
+
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+          animation-delay: -0.32s;
+}
+
+.loader:after {
+  left: 3.5em;
+}
+
+@-webkit-keyframes bblFadInOut {
+  0%, 80%, 100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+@keyframes bblFadInOut {
+  0%, 80%, 100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+.card {
+  background-color: hsl(0deg, 0%, 100%);
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  padding: 2.5rem;
+  max-width: 900px;
+  min-height: 400px;
+  text-align: center;
+  justify-content: space-between;
+}
+.card .container {
+  display: flex;
+}
+.card .container .sidebar {
+  background-image: url(/dist/assets/images/bg-sidebar-desktop.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width: 0px;
+  padding: 4rem 5.5rem 4rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+}
+.card .container .sidebar .steps {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+.card .container .sidebar .steps div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+.card .container .sidebar .steps div .btn {
+  background: none;
+  border: 1px solid white;
+  color: var(--white);
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.card .container .sidebar .steps div .active {
+  color: var(--marineblue);
+  background: var(--lightblue);
+}
+.card .container .sidebar .steps div .step_detail {
+  line-height: 0.5;
+  text-align: start;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.card .container .sidebar .steps div .step_detail .no {
+  color: var(--coolgray);
+  font-weight: 400;
+  font-size: 14px;
+}
+.card .container .sidebar .steps div .step_detail .name {
+  color: var(--white);
+  font-weight: 600;
+}
+.card .container .switch {
+  position: relative;
+  display: inline-block;
+  width: 39px;
+  height: 20px;
+}
+.card .container .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.card .container .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--marineblue);
+  transition: 0.4s;
+}
+.card .container .slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+}
+.card .container .slider.round {
+  border-radius: 34px;
+}
+.card .container .slider.round:before {
+  border-radius: 50%;
+}
+.card .container input:checked + .slider {
+  background-color: var(--marineblue);
+}
+.card .container input:checked + .slider:before {
+  transform: translateX(19px);
+}
+.card .container input:focus + .slider {
+  box-shadow: 0 0 1px var(--marineblue);
+}
+.card .container .steps_automation {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  min-height: 500px;
+  padding: 2.6rem 6.5rem;
+}
+.card .container .steps_automation .step_1,
+.card .container .steps_automation .step_2,
+.card .container .steps_automation .step_3,
+.card .container .steps_automation .step_4 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+.card .container .steps_automation .step_1 h1,
+.card .container .steps_automation .step_2 h1,
+.card .container .steps_automation .step_3 h1,
+.card .container .steps_automation .step_4 h1 {
+  font-size: 24px;
+  color: var(--marineblue);
+  font-weight: 700;
+  text-align: left;
+}
+.card .container .steps_automation .step_1 h4,
+.card .container .steps_automation .step_2 h4,
+.card .container .steps_automation .step_3 h4,
+.card .container .steps_automation .step_4 h4 {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0 0 2rem;
+  color: var(--coolgray);
+  text-align: left;
+}
+.card .container .steps_automation .step_5 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+.card .container .steps_automation .step_5 h4 {
+  font-size: 1.6rem;
+  color: var(--coolgray);
+  font-weight: 400;
+  margin: 0 1rem;
+}
+.card .container .steps_automation .step_1 form {
+  display: flex;
+  flex-direction: column;
+}
+.card .container .steps_automation .step_1 form span {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+  font-size: 14px;
+  color: var(--marineblue);
+}
+.card .container .steps_automation .step_1 form span label:nth-child(2) {
+  display: none;
+}
+.card .container .steps_automation .step_1 form input {
+  padding: 1.5rem;
+  border-radius: 8px;
+  outline: none;
+  border: 1px solid var(--lightgray);
+  color: var(--marineblue);
+  font-weight: 500;
+}
+.card .container .steps_automation .step_1 form input:hover {
+  border-color: var(--purplishblue);
+}
+.card .container .steps_automation .step_2 .bill_options {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
+  row-gap: 3rem;
+}
+.card .container .steps_automation .step_2 .bill_options .switch-opt {
+  grid-column: 1/4;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  justify-content: center;
+  gap: 1rem;
+  background: var(--alabaster);
+  color: var(--coolgray);
+}
+.card .container .steps_automation .step_2 .bill_options .bill_opt1,
+.card .container .steps_automation .step_2 .bill_options .bill_opt2,
+.card .container .steps_automation .step_2 .bill_options .bill_opt3 {
+  border: 1px solid var(--lightgray);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 8px;
+  min-width: 115px;
+  background-color: var(--white);
+  justify-content: space-between;
+  align-items: flex-start;
+  cursor: pointer;
+}
+.card .container .steps_automation .step_2 .bill_options .bill_opt1:hover,
+.card .container .steps_automation .step_2 .bill_options .bill_opt2:hover,
+.card .container .steps_automation .step_2 .bill_options .bill_opt3:hover {
+  border: 1px solid var(--purplishblue);
+}
+.card .container .steps_automation .step_2 .bill_options .bill_opt1 .detail,
+.card .container .steps_automation .step_2 .bill_options .bill_opt2 .detail,
+.card .container .steps_automation .step_2 .bill_options .bill_opt3 .detail {
+  margin-top: 2rem;
+  text-align: left;
+  line-height: 0.5;
+}
+.card .container .steps_automation .step_2 .bill_options .bill_opt1 .detail p:first-of-type,
+.card .container .steps_automation .step_2 .bill_options .bill_opt2 .detail p:first-of-type,
+.card .container .steps_automation .step_2 .bill_options .bill_opt3 .detail p:first-of-type {
+  color: var(--marineblue);
+  font-size: 14px;
+  font-weight: 600;
+}
+.card .container .steps_automation .step_2 .bill_options .bill_opt1 .detail p:nth-child(2),
+.card .container .steps_automation .step_2 .bill_options .bill_opt2 .detail p:nth-child(2),
+.card .container .steps_automation .step_2 .bill_options .bill_opt3 .detail p:nth-child(2) {
+  color: var(--coolgray);
+}
+.card .container .steps_automation .step_2 .bill_options .b_active {
+  background-color: var(--alabaster);
+  border: 1px solid var(--purplishblue);
+}
+.card .container .steps_automation .step_3 .addons_list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem 0;
+}
+.card .container .steps_automation .step_3 .addons_list .addon {
+  display: flex;
+  text-align: left;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--lightgray);
+  border-radius: 8px;
+  justify-content: space-between;
+}
+.card .container .steps_automation .step_3 .addons_list .addon:hover {
+  border: 1px solid var(--purplishblue);
+}
+.card .container .steps_automation .step_3 .addons_list .addon div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0.1;
+  gap: 1rem;
+}
+.card .container .steps_automation .step_3 .addons_list .addon div .cont {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 9px;
+  cursor: pointer;
+  font-size: 21px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.card .container .steps_automation .step_3 .addons_list .addon div .cont input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.card .container .steps_automation .step_3 .addons_list .addon div .cont input:checked ~ .checkmark {
+  background-color: var(--purplishblue);
+}
+.card .container .steps_automation .step_3 .addons_list .addon div .cont input:checked ~ .checkmark:after {
+  display: block;
+}
+.card .container .steps_automation .step_3 .addons_list .addon div .cont .checkmark:after {
+  display: none;
+  left: 9px;
+  top: 5px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.card .container .steps_automation .step_3 .addons_list .addon div .checkmark {
+  position: absolute;
+  top: -4px;
+  left: 2px;
+  border-radius: 4px;
+  height: 20px;
+  width: 20px;
+  background-color: none;
+  border: 1px solid #eee;
+}
+.card .container .steps_automation .step_3 .addons_list .addon div .checkmark:after {
+  content: "";
+  position: absolute;
+  margin-left: -3px;
+  margin-top: -3px;
+}
+.card .container .steps_automation .step_3 .addons_list .addon div span p:first-of-type {
+  color: var(--marineblue);
+  font-size: 14px;
+  font-weight: 600;
+}
+.card .container .steps_automation .step_3 .addons_list .addon div span p:nth-child(2) {
+  color: var(--coolgray);
+}
+.card .container .steps_automation .step_3 .addons_list .addon .amt {
+  color: var(--purplishblue);
+}
+.card .container .steps_automation .step_3 .addons_list .p_active {
+  background-color: var(--magnolia);
+  border: 1px solid var(--purplishblue);
+}
+.card .container .steps_automation .step_4 .selections {
+  background: var(--magnolia);
+  border-radius: 8px;
+}
+.card .container .steps_automation .step_4 .selections .divider {
+  border-top: 0px solid #bbb;
+  max-width: 360px;
+}
+.card .container .steps_automation .step_4 .selections div#g_s {
+  padding: 1.5rem;
+}
+.card .container .steps_automation .step_4 .selections div#g_s .plan {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: var(--marineblue);
+  font-weight: 600;
+}
+.card .container .steps_automation .step_4 .selections div#g_s .plan span {
+  display: flex;
+  flex-direction: column;
+  line-height: 0;
+  align-items: flex-start;
+}
+.card .container .steps_automation .step_4 .selections div#g_s .plan span button {
+  background: none;
+  color: var(--coolgray);
+  text-decoration: underline;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+.card .container .steps_automation .step_4 div#g_a {
+  display: flex;
+  flex-direction: column;
+}
+.card .container .steps_automation .step_4 div#g_a .addon {
+  display: flex;
+  align-items: center;
+  color: var(--coolgray);
+  padding: 0 1.5rem;
+  font-size: 16px;
+  justify-content: space-between;
+}
+.card .container .steps_automation .step_4 div#g_a .addon .amt {
+  color: var(--coolgray);
+}
+.card .container .steps_automation .step_4 div#tot {
+  display: flex;
+  align-items: center;
+  color: var(--coolgray);
+  padding: 0 1.5rem;
+  font-size: 16px;
+  justify-content: space-between;
+}
+.card .container .steps_automation .step_5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.card .container .steps_automation .step_5 h1 {
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--marineblue);
+}
+.card .container .steps_automation .step_5 h4 {
+  font-size: 1.6rem;
+  color: var(--coolgray);
+  font-weight: 400;
+}
+.card .container .right {
+  justify-content: flex-end;
+}
+.card .container .space {
+  justify-content: space-between;
+}
+.card .container .step_btn {
+  position: relative;
+  display: flex;
+}
+.card .container .step_btn #nextBtn {
+  padding: 1.5rem 4rem;
+  border-radius: 8px;
+  background: var(--marineblue);
+  border: none;
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.card .container .step_btn #prevBtn {
+  padding: 1.5rem 4rem;
+  border-radius: 8px;
+  color: var(--marineblue);
+  border: none;
+  background: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+.attribution a {
+  color: hsl(228deg, 45%, 44%);
+}
+
+@media screen and (max-width: 900px) {
+  .card {
+    padding: 0px;
+    border-radius: 0px;
+  }
+  .card .container {
+    flex-direction: column;
+    background-color: var(--pastelblue);
+  }
+  .card .container .sidebar {
+    border-radius: 0px;
+    background-image: url(../assets/images/bg-sidebar-mobile.svg);
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  .card .container .sidebar .steps {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .card .container .sidebar .steps div span {
+    display: none;
+  }
+  .card .container .steps_automation {
+    padding: 0px;
+  }
+  .card .container .steps_automation .step_1 h1,
+.card .container .steps_automation .step_2 h1,
+.card .container .steps_automation .step_3 h1,
+.card .container .steps_automation .step_4 h1 {
+    margin: 0;
+  }
+  .card .container .steps_automation .step_1 h4,
+.card .container .steps_automation .step_2 h4,
+.card .container .steps_automation .step_3 h4,
+.card .container .steps_automation .step_4 h4 {
+    margin: 0.5rem 0 1rem;
+  }
+  .card .container .steps_automation .step_1 form span,
+.card .container .steps_automation .step_2 form span,
+.card .container .steps_automation .step_3 form span,
+.card .container .steps_automation .step_4 form span {
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .card .container .steps_automation .step_1 .form,
+.card .container .steps_automation .step_2 .form,
+.card .container .steps_automation .step_3 .form,
+.card .container .steps_automation .step_4 .form {
+    padding: 2rem;
+    background-color: var(--white);
+    max-width: 300px;
+    border-radius: 8px;
+    z-index: 100;
+    margin: 6.9rem 0 0;
+  }
+  .card .container .steps_automation .step_1 .step_btn,
+.card .container .steps_automation .step_2 .step_btn,
+.card .container .steps_automation .step_3 .step_btn,
+.card .container .steps_automation .step_4 .step_btn {
+    background-color: var(--white);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+  }
+  .card .container .steps_automation .step_1 .step_btn #nextBtn,
+.card .container .steps_automation .step_1 .step_btn #prevBtn,
+.card .container .steps_automation .step_2 .step_btn #nextBtn,
+.card .container .steps_automation .step_2 .step_btn #prevBtn,
+.card .container .steps_automation .step_3 .step_btn #nextBtn,
+.card .container .steps_automation .step_3 .step_btn #prevBtn,
+.card .container .steps_automation .step_4 .step_btn #nextBtn,
+.card .container .steps_automation .step_4 .step_btn #prevBtn {
+    border-radius: 3px;
+  }
+  .card .container .steps_automation .step_2 .bill_options {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+  }
+  .card .container .steps_automation .step_2 .bill_options .bill_opt1,
+.card .container .steps_automation .step_2 .bill_options .bill_opt2,
+.card .container .steps_automation .step_2 .bill_options .bill_opt3 {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    -moz-column-gap: 1rem;
+         column-gap: 1rem;
+    padding: 0.5rem 1rem;
+  }
+  .card .container .steps_automation .step_2 .bill_options .bill_opt1 .detail,
+.card .container .steps_automation .step_2 .bill_options .bill_opt2 .detail,
+.card .container .steps_automation .step_2 .bill_options .bill_opt3 .detail {
+    margin: 0;
+  }
+  .card .container .steps_automation .step_4 .selections div#g_s {
+    padding: 0 1.5rem;
+  }
+  .card .container .steps_automation .step_5 h4 {
+    line-height: 2;
+    margin: 0;
+    font-size: 14px;
+  }
+  .card .container .steps_automation .step_5 .thk_form {
+    padding: 2rem;
+    background-color: var(--white);
+    max-width: 300px;
+    border-radius: 8px;
+    z-index: 100;
+    margin: 6.9rem 0 0;
+  }
+}/*# sourceMappingURL=index.css.map */
