@@ -138,16 +138,20 @@ for (let i = 0; i < a.length; i++) {
 const getSelAddons = () => {
   // Retrieve array from the storage
   const addns: Addon[] = JSON.parse(localStorage.getItem("addons") as string);
-  for (let i = 0; i < addns.length; i++) {
-    for (let k = 0; k < a.length; k++) {
-      let panel = a[k] as HTMLDivElement
-      let a_nm = a[k].children[0].children[1].children[0] as HTMLParagraphElement;
-      let a_sw = a[k].children[0].children[0].children[0] as HTMLInputElement;
-      if (addns[i].name == a_nm.innerHTML) {
-        a_sw.checked = true;
-        panel.classList.add("p_active")
+  if (addns !== null && addns.length > 0) {
+    for (let i = 0; i < addns.length; i++) {
+      for (let k = 0; k < a.length; k++) {
+        let panel = a[k] as HTMLDivElement
+        let a_nm = a[k].children[0].children[1].children[0] as HTMLParagraphElement;
+        let a_sw = a[k].children[0].children[0].children[0] as HTMLInputElement;
+        if (addns[i].name == a_nm.innerHTML) {
+          a_sw.checked = true;
+          panel.classList.add("p_active")
+        } 
       }
     }
+  } else {
+    return 
   }
 };
 
