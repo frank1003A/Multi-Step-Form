@@ -151,7 +151,7 @@ const getSelAddons = () => {
       }
     }
   } else {
-    return 
+    // do nothing 
   }
 };
 
