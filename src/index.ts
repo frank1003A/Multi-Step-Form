@@ -190,7 +190,8 @@ function viewSelections() {
   const plans: Plan = JSON.parse(localStorage.getItem("plan") as string);
   const addns: Addon[] = JSON.parse(localStorage.getItem("addons") as string);
 
-  const pl_temp = `<div class="plan">
+  if (plans !== null && addns !== null) {
+    const pl_temp = `<div class="plan">
     <span>
     <p class="desc">${plans.name}(${plans.duration})</p>
     <button id="r_p" onclick="checkIn">change</button>
@@ -213,6 +214,7 @@ function viewSelections() {
   list.innerHTML = pl_temp;
   l_a.innerHTML = addn_template.join("");
   t_d.innerHTML = tot_template;
+  }
 }
 
 function showStep(n: number) {

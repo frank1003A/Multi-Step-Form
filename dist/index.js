@@ -165,26 +165,28 @@ function viewSelections() {
     // Retrieve the object from the storage
     const plans = JSON.parse(localStorage.getItem("plan"));
     const addns = JSON.parse(localStorage.getItem("addons"));
-    const pl_temp = `<div class="plan">
+    if (plans !== null && addns !== null) {
+        const pl_temp = `<div class="plan">
     <span>
     <p class="desc">${plans.name}(${plans.duration})</p>
     <button id="r_p" onclick="checkIn">change</button>
     </span>
     <p class="amt">$${plans.amount}/mo</p>
   </div>`;
-    const addn_template = addns.map((a) => {
-        return `<div class="addon">
+        const addn_template = addns.map((a) => {
+            return `<div class="addon">
         <p class="name">${a.name}</p>
         <p class="amt">+$${a.amount}/mo</p>
       </div>`;
-    });
-    const tot_template = `
+        });
+        const tot_template = `
   <p class="t_l">Total(per month)</p>
   <p class="number">+$${calcTotal(plans, addns)}/mo</p>
   `;
-    list.innerHTML = pl_temp;
-    l_a.innerHTML = addn_template.join("");
-    t_d.innerHTML = tot_template;
+        list.innerHTML = pl_temp;
+        l_a.innerHTML = addn_template.join("");
+        t_d.innerHTML = tot_template;
+    }
 }
 function showStep(n) {
     // This function will display the specified step of the form ...
