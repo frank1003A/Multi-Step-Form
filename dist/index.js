@@ -116,6 +116,7 @@ for (let i = 0; i < a.length; i++) {
     });
 }
 const getSelAddons = () => {
+    // Retrieve array from the storage
     const addns = JSON.parse(localStorage.getItem("addons"));
     for (let i = 0; i < addns.length; i++) {
         for (let k = 0; k < a.length; k++) {
@@ -129,33 +130,8 @@ const getSelAddons = () => {
         }
     }
 };
-/**let v = addns.map(ad => {
-    for (let i = 0; i < a.length; i++) {
-      let panel = a[i] as HTMLDivElement
-      let a_nm = a[i].children[0].children[1].children[0] as HTMLParagraphElement;
-      let a_sw = a[i].children[0].children[0].children[0] as HTMLInputElement;
-      if (ad.name === a_nm.innerHTML){
-        a_sw.checked = true;
-        panel.classList.add("p_active")
-      } else {
-        a_sw.checked = false;
-        panel.classList.remove("p_active")
-      }
-    }
-  }) */
-/**for (let i = 0; i < addns.length; i++) {
-    let panel = a[i] as HTMLDivElement
-    let a_nm = a[i].children[0].children[1].children[0] as HTMLParagraphElement;
-    let a_sw = a[i].children[0].children[0].children[0] as HTMLInputElement;
-    if (addns && addns[i].name === a_nm.innerHTML){
-      a_sw.checked = true;
-      panel.classList.add("p_active")
-    } else {
-      a_sw.checked = false;
-      panel.classList.remove("p_active")
-    }
-  } */
 const removeAddon = () => {
+    // Retrieve array from the storage
     const addns = JSON.parse(localStorage.getItem("addons"));
     if (addns && addns.length === 0) {
         localStorage.removeItem("addons");
