@@ -265,6 +265,7 @@ function showStep(n) {
     if (n == 4) {
         nextBtn.style.display = "none";
         prevBtn.style.display = "none";
+        btnCont.style.display = "none";
     }
     // ... and run a function that displays the correct step indicator:
     updateStepIndicator(n);

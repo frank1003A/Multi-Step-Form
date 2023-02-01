@@ -521,7 +521,7 @@ body {
   color: hsl(228deg, 45%, 44%);
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 500px) {
   body {
     background-color: var(--magnolia);
   }
@@ -632,6 +632,6 @@ body {
     max-width: 300px;
     border-radius: 8px;
     z-index: 100;
-    margin: 6.9rem 0 0;
+    margin: 9.9rem 0 0;
   }
 }/*# sourceMappingURL=index.css.map */
