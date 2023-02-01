@@ -199,10 +199,10 @@ body {
   font-weight: 700;
   text-align: left;
 }
-.card .container .steps_automation .step_1 h4,
-.card .container .steps_automation .step_2 h4,
-.card .container .steps_automation .step_3 h4,
-.card .container .steps_automation .step_4 h4 {
+.card .container .steps_automation .step_1 h2,
+.card .container .steps_automation .step_2 h2,
+.card .container .steps_automation .step_3 h2,
+.card .container .steps_automation .step_4 h2 {
   font-size: 16px;
   font-weight: 400;
   margin: 0 0 2rem;
@@ -215,7 +215,7 @@ body {
   height: 100%;
   justify-content: space-between;
 }
-.card .container .steps_automation .step_5 h4 {
+.card .container .steps_automation .step_5 h2 {
   font-size: 1.6rem;
   color: var(--coolgray);
   font-weight: 400;
@@ -474,7 +474,7 @@ body {
   font-weight: 600;
   color: var(--marineblue);
 }
-.card .container .steps_automation .step_5 h4 {
+.card .container .steps_automation .step_5 h2 {
   font-size: 1.6rem;
   color: var(--coolgray);
   font-weight: 400;
@@ -582,10 +582,10 @@ body {
 .card .container .row .steps_automation .step_4 h1 {
     margin: 0;
   }
-  .card .container .row .steps_automation .step_1 h4,
-.card .container .row .steps_automation .step_2 h4,
-.card .container .row .steps_automation .step_3 h4,
-.card .container .row .steps_automation .step_4 h4 {
+  .card .container .row .steps_automation .step_1 h2,
+.card .container .row .steps_automation .step_2 h2,
+.card .container .row .steps_automation .step_3 h2,
+.card .container .row .steps_automation .step_4 h2 {
     margin: 0.5rem 0 1rem;
   }
   .card .container .row .steps_automation .step_1 form span,
@@ -629,7 +629,7 @@ body {
   .card .container .row .steps_automation .step_4 .selections div#g_s {
     padding: 0 1.5rem;
   }
-  .card .container .row .steps_automation .step_5 h4 {
+  .card .container .row .steps_automation .step_5 h2 {
     line-height: 2;
     margin: 0;
     font-size: 14px;
