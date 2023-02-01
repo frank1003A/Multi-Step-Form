@@ -54,6 +54,7 @@ const toggleActivePlan = (active) => {
         }
     }
 };
+// get active plan from ls
 const getActivePlan = () => {
     const pl = JSON.parse(localStorage.getItem("plan"));
     for (let i = 0; i < 3; i++) {
@@ -84,6 +85,7 @@ for (let i = 0; i < 3; i++) {
         removeAddon();
     });
 }
+// updates the yr to mo in plan view
 const updatePlanAmt = (sw) => {
     let amt1 = b[0].children[1].children[1];
     let amt2 = b[1].children[1].children[1];
@@ -153,6 +155,7 @@ for (let i = 0; i < a.length; i++) {
         }
     });
 }
+// re-renders the yr to mo suffix in the amount view
 const updateAddonView = () => {
     const pl = JSON.parse(localStorage.getItem("plan"));
     // looping through html collection for addons_list only if plan is in ls
@@ -170,6 +173,7 @@ const updateAddonView = () => {
         }
     }
 };
+// render all the addons in ls
 const getSelAddons = () => {
     // Retrieve array from the storage
     const addns = JSON.parse(localStorage.getItem("addons"));
@@ -191,6 +195,7 @@ const getSelAddons = () => {
         // do nothing
     }
 };
+// removes addon from ls if they are unchecked and re-renders the UI
 const removeAddon = () => {
     // Retrieve array from the storage
     const addns = JSON.parse(localStorage.getItem("addons"));
@@ -198,6 +203,8 @@ const removeAddon = () => {
         localStorage.removeItem("addons");
     }
 };
+// updates selected addons in ls if user didn't finish steps
+// and is attempting to start from where they last stopped
 const updateAddon = (name) => {
     // Retrieve array from the storage
     const addns = JSON.parse(localStorage.getItem("addons"));
@@ -208,15 +215,20 @@ const updateAddon = (name) => {
     });
     localStorage.setItem("addons", JSON.stringify(s_a));
 };
+// calcuates the total amount of plan and addons selected
 const calcTotal = (p, a) => {
     let p_amt = Number(p.amount);
     let a_amt = a.reduce((acc, a) => acc + Number(a.amount), 0);
     return p_amt + a_amt;
 };
+// change of plan button is rendered dynamically
+// so this function adds an event listener to it 
 const addChangeBtn = () => {
     /**navigate back to plan page to make change */
     r_p.addEventListener("click", () => nextPrev(-2));
 };
+// function programmatically display user selected 
+// plan and addons
 function viewSelections() {
     // Retrieve the object from the storage
     const plans = JSON.parse(localStorage.getItem("plan"));
@@ -270,12 +282,35 @@ function showStep(n) {
     // ... and run a function that displays the correct step indicator:
     updateStepIndicator(n);
 }
+// remove all items from ls if user finished all step
 const removeItems = () => {
     localStorage.updateItem("plan");
     localStorage.updateItem("addons");
 };
+// media query function remove the button 
+// containers when inputs are in focus
+let sm = window.matchMedia("(max-width: 500px)");
+const removeBtnOnFocus = (sm) => {
+    let form = document.forms[0];
+    let name = form.children[1];
+    let email = form.children[3];
+    let phone = form.children[5];
+    let pe = getComputedStyle(btnCont);
+    if (sm.matches) {
+        name.addEventListener("focusin", () => btnCont.style.display = "none");
+        name.addEventListener("focusout", () => btnCont.style.display = "");
+        email.addEventListener("focusin", () => btnCont.style.display = "none");
+        email.addEventListener("focusout", () => btnCont.style.display = "");
+        phone.addEventListener("focusin", () => btnCont.style.display = "none");
+        phone.addEventListener("focusout", () => btnCont.style.display = "");
+    }
+};
+removeBtnOnFocus(sm);
+sm.addEventListener("changer", () => removeBtnOnFocus);
+// buttons
 nextBtn.addEventListener("click", () => validateInputs());
 prevBtn.addEventListener("click", () => nextPrev(-1));
+// toggler for form required fields styling
 const toggleReqField = (value, label, input) => {
     if (value == "") {
         label.style.display = "block";
@@ -288,6 +323,8 @@ const toggleReqField = (value, label, input) => {
         input.style.borderColor = "";
     }
 };
+// triggered by next button press to trigger 
+// moving to next step or requring input to fields
 const validateInputs = () => {
     let form = document.forms[0];
     let name = form.children[1];
@@ -358,8 +395,6 @@ function nextPrev(n) {
         addChangeBtn();
     // if you have reached the end of the form... :
     if (current_step >= s.length) {
-        //...the form gets submitted:
-        alert("finished");
         // update plan and addons from local storage
         removeItems();
         return false;
@@ -367,13 +402,13 @@ function nextPrev(n) {
     // Otherwise, display the correct tab:
     showStep(current_step);
 }
+// updates the sidebar steps indicator
 function updateStepIndicator(active) {
     for (let i = 0; i < steps_indicator.length; i++) {
         let n = steps_indicator[i].children[0];
         let c = steps_indicator[active].children[0];
         n.classList.remove("active");
         c.classList.add("active");
-        //if (active == 3) n.className += " active";
     }
 }
 showStep(current_step);

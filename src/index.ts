@@ -70,6 +70,7 @@ const toggleActivePlan = (active: number) => {
   }
 };
 
+// get active plan from ls
 const getActivePlan = () => {
   const pl: Plan = JSON.parse(localStorage.getItem("plan") as string);
   for (let i = 0; i < 3; i++) {
@@ -102,6 +103,7 @@ for (let i = 0; i < 3; i++) {
   });
 }
 
+// updates the yr to mo in plan view
 const updatePlanAmt = (sw: HTMLInputElement) => {
   let amt1 = b[0].children[1].children[1] as HTMLParagraphElement;
   let amt2 = b[1].children[1].children[1] as HTMLParagraphElement;
@@ -174,6 +176,7 @@ for (let i = 0; i < a.length; i++) {
   });
 }
 
+// re-renders the yr to mo suffix in the amount view
 const updateAddonView = () => {
   const pl: Plan = JSON.parse(localStorage.getItem("plan") as string);
   // looping through html collection for addons_list only if plan is in ls
@@ -191,6 +194,7 @@ const updateAddonView = () => {
   }
 };
 
+// render all the addons in ls
 const getSelAddons = () => {
   // Retrieve array from the storage
   const addns: Addon[] = JSON.parse(localStorage.getItem("addons") as string);
@@ -212,6 +216,7 @@ const getSelAddons = () => {
   }
 };
 
+// removes addon from ls if they are unchecked and re-renders the UI
 const removeAddon = () => {
   // Retrieve array from the storage
   const addns: Addon[] = JSON.parse(localStorage.getItem("addons") as string);
@@ -220,6 +225,8 @@ const removeAddon = () => {
   }
 };
 
+// updates selected addons in ls if user didn't finish steps
+// and is attempting to start from where they last stopped
 const updateAddon = (name: string) => {
   // Retrieve array from the storage
   const addns: Addon[] = JSON.parse(localStorage.getItem("addons") as string);
@@ -231,17 +238,22 @@ const updateAddon = (name: string) => {
   localStorage.setItem("addons", JSON.stringify(s_a));
 };
 
+// calcuates the total amount of plan and addons selected
 const calcTotal = (p: Plan, a: Addon[]) => {
   let p_amt = Number(p.amount);
   let a_amt = a.reduce((acc, a) => acc + Number(a.amount), 0);
   return p_amt + a_amt;
 };
 
+// change of plan button is rendered dynamically
+// so this function adds an event listener to it 
 const addChangeBtn = () => {
   /**navigate back to plan page to make change */
    r_p.addEventListener("click", () => nextPrev(-2));
 };
 
+// function programmatically display user selected 
+// plan and addons
 function viewSelections() {
   // Retrieve the object from the storage
   const plans: Plan = JSON.parse(localStorage.getItem("plan") as string);
@@ -302,14 +314,40 @@ function showStep(n: number) {
   updateStepIndicator(n);
 }
 
+// remove all items from ls if user finished all step
 const removeItems = () => {
   localStorage.updateItem("plan");
   localStorage.updateItem("addons");
 };
 
+// media query function remove the button 
+// containers when inputs are in focus
+let sm = window.matchMedia("(max-width: 500px)")
+const removeBtnOnFocus = (sm: MediaQueryList): any => {
+  let form = document.forms[0] as HTMLFormElement;
+  let name = form.children[1] as HTMLInputElement;
+  let email = form.children[3] as HTMLInputElement;
+  let phone = form.children[5] as HTMLInputElement;
+  let pe = getComputedStyle(btnCont)
+  
+  if (sm.matches) {
+    name.addEventListener("focusin", () => btnCont.style.display = "none")
+    name.addEventListener("focusout", () => btnCont.style.display = "")
+    email.addEventListener("focusin", () => btnCont.style.display = "none")
+    email.addEventListener("focusout", () => btnCont.style.display = "")
+    phone.addEventListener("focusin", () => btnCont.style.display = "none")
+    phone.addEventListener("focusout", () => btnCont.style.display = "")
+  }
+}
+
+removeBtnOnFocus(sm)
+sm.addEventListener("changer", () => removeBtnOnFocus)
+
+// buttons
 nextBtn.addEventListener("click", () => validateInputs())
 prevBtn.addEventListener("click", () => nextPrev(-1));
 
+// toggler for form required fields styling
 const toggleReqField = (
   value: string,
   label: HTMLSpanElement,
@@ -326,6 +364,8 @@ const toggleReqField = (
   }
 };
 
+// triggered by next button press to trigger 
+// moving to next step or requring input to fields
 const validateInputs = () => {
   let form = document.forms[0] as HTMLFormElement;
   let name = form.children[1] as HTMLInputElement;
@@ -396,8 +436,6 @@ function nextPrev(n: number) {
   if (current_step == 3) addChangeBtn();
   // if you have reached the end of the form... :
   if (current_step >= s.length) {
-    //...the form gets submitted:
-    alert("finished");
     // update plan and addons from local storage
     removeItems();
     return false;
@@ -406,13 +444,13 @@ function nextPrev(n: number) {
   showStep(current_step);
 }
 
+// updates the sidebar steps indicator
 function updateStepIndicator(active: number) {
   for (let i = 0; i < steps_indicator.length; i++) {
     let n = steps_indicator[i].children[0] as HTMLButtonElement;
     let c = steps_indicator[active].children[0] as HTMLButtonElement;
     n.classList.remove("active");
     c.classList.add("active");
-    //if (active == 3) n.className += " active";
   }
 }
 
