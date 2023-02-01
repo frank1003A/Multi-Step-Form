@@ -470,7 +470,7 @@ body {
                             color: var(--marineblue);
                             font-weight: 600;
 
-                            span {
+                            &>div {
                                 display: flex;
                                 flex-direction: column;
                                 line-height: 0;
@@ -505,6 +505,11 @@ body {
                         .amt {
                             color: var(--coolgray);
                         }
+
+                        p:nth-child(2) {
+                            color: var(--marineblue);
+                            font-weight: 400;
+                        }
                     }
                 }
 
@@ -515,6 +520,11 @@ body {
                     padding: 0 1.5rem;
                     font-size: 16px;
                     justify-content: space-between;
+
+                    p:nth-child(2) {
+                        color: var(--purplishblue);
+                        font-weight: 600;
+                    }
                 }
             }
 

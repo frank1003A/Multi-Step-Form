@@ -419,13 +419,13 @@ body {
   color: var(--marineblue);
   font-weight: 600;
 }
-.card .container .steps_automation .step_4 .selections div#g_s .plan span {
+.card .container .steps_automation .step_4 .selections div#g_s .plan > div {
   display: flex;
   flex-direction: column;
   line-height: 0;
   align-items: flex-start;
 }
-.card .container .steps_automation .step_4 .selections div#g_s .plan span button {
+.card .container .steps_automation .step_4 .selections div#g_s .plan > div button {
   background: none;
   color: var(--coolgray);
   text-decoration: underline;
@@ -448,6 +448,10 @@ body {
 .card .container .steps_automation .step_4 div#g_a .addon .amt {
   color: var(--coolgray);
 }
+.card .container .steps_automation .step_4 div#g_a .addon p:nth-child(2) {
+  color: var(--marineblue);
+  font-weight: 400;
+}
 .card .container .steps_automation .step_4 div#tot {
   display: flex;
   align-items: center;
@@ -455,6 +459,10 @@ body {
   padding: 0 1.5rem;
   font-size: 16px;
   justify-content: space-between;
+}
+.card .container .steps_automation .step_4 div#tot p:nth-child(2) {
+  color: var(--purplishblue);
+  font-weight: 600;
 }
 .card .container .steps_automation .step_5 {
   display: flex;

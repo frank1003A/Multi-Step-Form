@@ -72,8 +72,8 @@ const getActivePlan = () => {
 for (let i = 0; i < 3; i++) {
     let name = b[i].children[1].children[0];
     let amt = b[i].children[1].children[1];
-    let btn = b[i];
-    btn.addEventListener("click", function () {
+    let div = b[i];
+    div.addEventListener("click", function () {
         let amount = planAmt(i);
         plan = {
             name: name.innerHTML,
@@ -236,10 +236,10 @@ function viewSelections() {
     let suffix = plans.duration === "Yearly" ? "yr" : "mo";
     if (plans !== null && addns !== null) {
         const pl_temp = `<div class="plan">
-    <span>
+    <div>
     <p class="desc">${plans.name}(${plans.duration})</p>
     <button id="r_p">change</button>
-    </span>
+    </div>
     <p class="amt">$${plans.amount}/${suffix}</p>
   </div>`;
         const addn_template = addns.map((a) => {
