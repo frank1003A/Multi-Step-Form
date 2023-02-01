@@ -546,7 +546,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
   }
-  .card .container .sidebar .steps div span {
+  .card .container .sidebar .steps > div .step_detail {
     display: none;
   }
   .card .container .row {

@@ -621,8 +621,8 @@ body {
                     flex-direction: row;
                     justify-content: space-between;
 
-                    div {
-                        span {
+                    &>div {
+                        .step_detail {
                             display: none;
                         }
                     }
