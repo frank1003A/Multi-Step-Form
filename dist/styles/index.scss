@@ -633,11 +633,12 @@ body {
                 height: 100vh;
                 .step_btn {
                     background-color: var(--white);
-                    position: absolute;
+                    position: fixed;
                     bottom: 0;
                     left: 0;
                     right: 0;
                     padding: 1rem;
+                    z-index: 100;
 
                     #nextBtn,
                     #prevBtn {
