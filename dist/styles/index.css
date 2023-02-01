@@ -386,12 +386,12 @@ body {
   margin-left: -3px;
   margin-top: -3px;
 }
-.card .container .steps_automation .step_3 .addons_list .addon div span p:first-of-type {
+.card .container .steps_automation .step_3 .addons_list .addon div .sp p:first-of-type {
   color: var(--marineblue);
   font-size: 14px;
   font-weight: 600;
 }
-.card .container .steps_automation .step_3 .addons_list .addon div span p:nth-child(2) {
+.card .container .steps_automation .step_3 .addons_list .addon div .sp p:nth-child(2) {
   color: var(--coolgray);
 }
 .card .container .steps_automation .step_3 .addons_list .addon .amt {
