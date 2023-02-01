@@ -11,22 +11,11 @@ const t_d = document.getElementById("tot");
 const l_a = document.getElementById("g_a");
 const s_b = document.getElementById("step_btn");
 const r_p = document.getElementById("change");
-const fm = document.getElementsByClassName("iform")[0].children;
-const e_1 = document.getElementById("err_1");
-const e_2 = document.getElementById("err_2");
-const e_3 = document.getElementById("err_3");
+const btnCont = document.getElementById("btn-cont");
 let current_step = 0;
-let active_plan = 0;
 let plan = {};
 let addon = [];
 let selection = {};
-/**Toggle Active Step Button */
-for (let i = 0; i < steps_indicator.length; i++) {
-    let input_btn = steps_indicator[i].children[0];
-    input_btn.addEventListener("click", () => {
-        input_btn.classList.toggle("active");
-    });
-}
 /**Hide Steps */
 for (let i = 0; i < s.length; i++) {
     let x = s[i];
@@ -72,6 +61,10 @@ const getActivePlan = () => {
         if (pl && pl.name === name.innerHTML) {
             b[i].classList.add("b_active");
         }
+        if (pl && pl.duration == "Yearly") {
+            sw.checked = true;
+            updatePlanAmt(sw);
+        }
     }
 };
 /**Get User Plan */
@@ -80,31 +73,76 @@ for (let i = 0; i < 3; i++) {
     let amt = b[i].children[1].children[1];
     let btn = b[i];
     btn.addEventListener("click", function () {
+        let amount = planAmt(i);
         plan = {
             name: name.innerHTML,
-            amount: planAmt(i),
-            duration: "Yearly",
+            amount: sw.checked ? `${Number(amount) * 10}` : amount,
+            duration: sw.checked ? "Yearly" : "Monthly",
         };
         toggleActivePlan(i);
         localStorage.setItem("plan", JSON.stringify(plan));
+        removeAddon();
     });
 }
+const updatePlanAmt = (sw) => {
+    let amt1 = b[0].children[1].children[1];
+    let amt2 = b[1].children[1].children[1];
+    let amt3 = b[2].children[1].children[1];
+    let p31 = b[0].children[1].children[2];
+    let p32 = b[1].children[1].children[2];
+    let p33 = b[2].children[1].children[2];
+    //
+    sw.checked ? (amt1.innerHTML = `$${9 * 10}/yr`) : (amt1.innerHTML = `$9/mo`);
+    sw.checked
+        ? (amt2.innerHTML = `$${12 * 10}/yr`)
+        : (amt2.innerHTML = `$12/mo`);
+    sw.checked
+        ? (amt3.innerHTML = `$${15 * 10}/yr`)
+        : (amt3.innerHTML = `$15/mo`);
+    //
+    if (sw.checked) {
+        p31.style.display = "block";
+        p32.style.display = "block";
+        p33.style.display = "block";
+    }
+    else {
+        p31.style.display = "none";
+        p32.style.display = "none";
+        p33.style.display = "none";
+    }
+};
 /**Plan Duration Toggle */
 sw.addEventListener("click", function () {
+    updatePlanAmt(sw);
     const plans = JSON.parse(localStorage.getItem("plan"));
-    plans.duration = this.checked ? "Yearly" : "Monthly";
-    localStorage.setItem("plan", JSON.stringify(plans));
+    let old_amt = Number(plans.amount) / 10;
+    let new_amt = Number(plans.amount) * 10;
+    if (this.checked) {
+        plans.duration = "Yearly";
+        plans.amount = new_amt.toString();
+        localStorage.setItem("plan", JSON.stringify(plans));
+    }
+    else {
+        plans.duration = "Monthly";
+        plans.amount = old_amt.toString();
+        localStorage.setItem("plan", JSON.stringify(plans));
+    }
+    removeAddon();
 });
 /**Handle User Addons */
 for (let i = 0; i < a.length; i++) {
+    // parent element with className: addon
+    let panel = a[i];
+    // input & p tag in first child of panel
     let a_sw = a[i].children[0].children[0].children[0];
     let a_nm = a[i].children[0].children[1].children[0];
-    let panel = a[i];
     a_sw.addEventListener("click", () => {
+        const pl = JSON.parse(localStorage.getItem("plan"));
+        let amt = addnAmt(i);
         if (a_sw.checked) {
             addon.push({
                 name: a_nm.innerHTML,
-                amount: addnAmt(i),
+                amount: pl.duration == "Yearly" ? `${Number(amt) * 10}` : amt,
             });
             panel.classList.add("p_active");
             localStorage.setItem("addons", JSON.stringify(addon));
@@ -115,6 +153,23 @@ for (let i = 0; i < a.length; i++) {
         }
     });
 }
+const updateAddonView = () => {
+    const pl = JSON.parse(localStorage.getItem("plan"));
+    // looping through html collection for addons_list only if plan is in ls
+    if (pl) {
+        for (let i = 0; i < a.length; i++) {
+            let amt = addnAmt(i);
+            // span element for addons amount
+            let a_mt = a[i].children[1];
+            if (pl.duration == "Yearly") {
+                a_mt.innerHTML = `$${Number(amt) * 10}/yr`;
+            }
+            else {
+                // do nothing
+            }
+        }
+    }
+};
 const getSelAddons = () => {
     // Retrieve array from the storage
     const addns = JSON.parse(localStorage.getItem("addons"));
@@ -122,7 +177,8 @@ const getSelAddons = () => {
         for (let i = 0; i < addns.length; i++) {
             for (let k = 0; k < a.length; k++) {
                 let panel = a[k];
-                let a_nm = a[k].children[0].children[1].children[0];
+                let a_nm = a[k].children[0].children[1]
+                    .children[0];
                 let a_sw = a[k].children[0].children[0].children[0];
                 if (addns[i].name == a_nm.innerHTML) {
                     a_sw.checked = true;
@@ -132,16 +188,15 @@ const getSelAddons = () => {
         }
     }
     else {
-        // do nothing 
+        // do nothing
     }
 };
 const removeAddon = () => {
     // Retrieve array from the storage
     const addns = JSON.parse(localStorage.getItem("addons"));
-    if (addns && addns.length === 0) {
+    if (addns && addns.length !== 0) {
         localStorage.removeItem("addons");
     }
-    addon = [];
 };
 const updateAddon = (name) => {
     // Retrieve array from the storage
@@ -158,30 +213,32 @@ const calcTotal = (p, a) => {
     let a_amt = a.reduce((acc, a) => acc + Number(a.amount), 0);
     return p_amt + a_amt;
 };
-const checkIn = () => {
-    r_p.addEventListener("click", () => alert("sffs"));
+const addChangeBtn = () => {
+    /**navigate back to plan page to make change */
+    r_p.addEventListener("click", () => nextPrev(-2));
 };
 function viewSelections() {
     // Retrieve the object from the storage
     const plans = JSON.parse(localStorage.getItem("plan"));
     const addns = JSON.parse(localStorage.getItem("addons"));
+    let suffix = plans.duration === "Yearly" ? "yr" : "mo";
     if (plans !== null && addns !== null) {
         const pl_temp = `<div class="plan">
     <span>
     <p class="desc">${plans.name}(${plans.duration})</p>
-    <button id="r_p" onclick="checkIn">change</button>
+    <button id="r_p">change</button>
     </span>
-    <p class="amt">$${plans.amount}/mo</p>
+    <p class="amt">$${plans.amount}/${suffix}</p>
   </div>`;
         const addn_template = addns.map((a) => {
             return `<div class="addon">
         <p class="name">${a.name}</p>
-        <p class="amt">+$${a.amount}/mo</p>
+        <p class="amt">+$${a.amount}/${suffix}</p>
       </div>`;
         });
         const tot_template = `
   <p class="t_l">Total(per month)</p>
-  <p class="number">+$${calcTotal(plans, addns)}/mo</p>
+  <p class="number">+$${calcTotal(plans, addns)}/${suffix}</p>
   `;
         list.innerHTML = pl_temp;
         l_a.innerHTML = addn_template.join("");
@@ -195,12 +252,19 @@ function showStep(n) {
     // ... and fix the Previous/Next buttons:
     if (n == 0) {
         prevBtn.style.display = "none";
+        btnCont.classList.add("flex_end");
     }
     else {
         prevBtn.style.display = "inline";
+        btnCont.classList.replace("flex_end", "sp_between");
     }
-    if (n == s.length - 2) {
+    if (n == 3) {
         viewSelections();
+        nextBtn.innerHTML = "Submit";
+    }
+    if (n == 4) {
+        nextBtn.style.display = "none";
+        prevBtn.style.display = "none";
     }
     // ... and run a function that displays the correct step indicator:
     updateStepIndicator(n);
@@ -209,30 +273,66 @@ const removeItems = () => {
     localStorage.updateItem("plan");
     localStorage.updateItem("addons");
 };
+nextBtn.addEventListener("click", () => validateInputs());
+prevBtn.addEventListener("click", () => nextPrev(-1));
+const toggleReqField = (value, label, input) => {
+    if (value == "") {
+        label.style.display = "block";
+        label.style.color = "red";
+        input.style.borderColor = "red";
+    }
+    else {
+        label.style.display = "";
+        label.style.color = "";
+        input.style.borderColor = "";
+    }
+};
+const validateInputs = () => {
+    let form = document.forms[0];
+    let name = form.children[1];
+    let email = form.children[3];
+    let phone = form.children[5];
+    if (name.value !== "" && email.value !== "" && phone.value !== "") {
+        nextPrev(1);
+    }
+    else {
+        reqField();
+    }
+};
 /**This Function handles the step 1 form required fields */
 const reqField = () => {
+    let form = document.forms[0];
+    /**
+     * I didn't want to list out every element
+     * and add event handlers for everyone of them
+     * so I created a dummy array to hold all the element
+     * and then programmatically toggle them based on their
+     * index in the array
+    */
     const dummyArr = [
-        { el: fm[1] },
-        { el: fm[0].children[1] },
-        { el: fm[3] },
-        { el: fm[2].children[1] },
-        { el: fm[5] },
-        { el: fm[4].children[1] },
+        { el: form.children[1] },
+        { el: form.children[0].children[1] },
+        { el: form.children[3] },
+        { el: form.children[2].children[1] },
+        { el: form.children[5] },
+        { el: form.children[4].children[1] },
     ];
+    // loop through the dummy array to control specific elements
     for (let i = 0; i < dummyArr.length; i++) {
-        if (i / i !== 0) {
+        // the array is setup that for every input element there is its
+        // corresponding label 1 index after it, 
+        // so the input index is even, the label index is odd
+        if (i % 2 === 0) {
+            // iE is short for input element 
             let iE = dummyArr[i].el;
+            // nE is short for next element
+            let nE = dummyArr[i + 1].el;
+            // initiate first toggle on function call
+            if (iE !== null && nE !== null)
+                toggleReqField(iE.value, nE, iE);
+            // listen for chnages to input then intiate another toggle
             iE.addEventListener("change", function () {
-                if (this.value == "") {
-                    dummyArr[i + 1].el.style.display = "block";
-                    dummyArr[i + 1].el.style.color = "red";
-                    this.style.borderColor = "red";
-                }
-                else {
-                    dummyArr[i + 1].el.style.display = "";
-                    dummyArr[i + 1].el.style.color = "";
-                    this.style.borderColor = "";
-                }
+                toggleReqField(iE.value, nE, iE);
             });
         }
     }
@@ -240,8 +340,6 @@ const reqField = () => {
 function nextPrev(n) {
     // This function will figure out which step to display
     let x = s[current_step];
-    // Exit the function if any field in the current step is invalid:
-    //if (n == 1 && !validateForm()) return false;
     // Hide the current step:
     x.style.display = "none";
     // Increase or decrease the current step by 1:
@@ -250,8 +348,13 @@ function nextPrev(n) {
     if (current_step == 1)
         getActivePlan();
     //
-    if (current_step == 2)
+    if (current_step == 2) {
         getSelAddons();
+        updateAddonView();
+    }
+    //
+    if (current_step == 3)
+        addChangeBtn();
     // if you have reached the end of the form... :
     if (current_step >= s.length) {
         //...the form gets submitted:
@@ -263,19 +366,13 @@ function nextPrev(n) {
     // Otherwise, display the correct tab:
     showStep(current_step);
 }
-function updateStepIndicator(n) {
+function updateStepIndicator(active) {
     for (let i = 0; i < steps_indicator.length; i++) {
-        let x = steps_indicator[i].children[0];
-        let y = steps_indicator[n].children[0];
-        x.className = x.className.replace(" active", "");
-        y.className += " active";
+        let n = steps_indicator[i].children[0];
+        let c = steps_indicator[active].children[0];
+        n.classList.remove("active");
+        c.classList.add("active");
+        //if (active == 3) n.className += " active";
     }
 }
 showStep(current_step);
-reqField();
-/**<footer class="attribution">
-      Challenge by
-      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
-        >Frontend Mentor</a
-      >. Coded by <a href="#">Your Name Here</a>.
-    </footer> */
