@@ -328,14 +328,14 @@ body {
 .card .container .steps_automation .step_3 .addons_list .addon:hover {
   border: 1px solid var(--purplishblue);
 }
-.card .container .steps_automation .step_3 .addons_list .addon div {
+.card .container .steps_automation .step_3 .addons_list .addon > div {
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 0.1;
   gap: 1rem;
 }
-.card .container .steps_automation .step_3 .addons_list .addon div .cont {
+.card .container .steps_automation .step_3 .addons_list .addon > div .cont {
   display: block;
   position: relative;
   padding-left: 25px;
@@ -347,20 +347,20 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
-.card .container .steps_automation .step_3 .addons_list .addon div .cont input {
+.card .container .steps_automation .step_3 .addons_list .addon > div .cont input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
   height: 0;
   width: 0;
 }
-.card .container .steps_automation .step_3 .addons_list .addon div .cont input:checked ~ .checkmark {
+.card .container .steps_automation .step_3 .addons_list .addon > div .cont input:checked ~ .checkmark {
   background-color: var(--purplishblue);
 }
-.card .container .steps_automation .step_3 .addons_list .addon div .cont input:checked ~ .checkmark:after {
+.card .container .steps_automation .step_3 .addons_list .addon > div .cont input:checked ~ .checkmark:after {
   display: block;
 }
-.card .container .steps_automation .step_3 .addons_list .addon div .cont .checkmark:after {
+.card .container .steps_automation .step_3 .addons_list .addon > div .cont .checkmark:after {
   display: none;
   left: 9px;
   top: 5px;
@@ -370,7 +370,7 @@ body {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
-.card .container .steps_automation .step_3 .addons_list .addon div .checkmark {
+.card .container .steps_automation .step_3 .addons_list .addon > div .checkmark {
   position: absolute;
   top: -4px;
   left: 2px;
@@ -380,18 +380,18 @@ body {
   background-color: none;
   border: 1px solid #eee;
 }
-.card .container .steps_automation .step_3 .addons_list .addon div .checkmark:after {
+.card .container .steps_automation .step_3 .addons_list .addon > div .checkmark:after {
   content: "";
   position: absolute;
   margin-left: -3px;
   margin-top: -3px;
 }
-.card .container .steps_automation .step_3 .addons_list .addon div .sp p:first-of-type {
+.card .container .steps_automation .step_3 .addons_list .addon > div .sp p:first-of-type {
   color: var(--marineblue);
   font-size: 14px;
   font-weight: 600;
 }
-.card .container .steps_automation .step_3 .addons_list .addon div .sp p:nth-child(2) {
+.card .container .steps_automation .step_3 .addons_list .addon > div .sp p:nth-child(2) {
   color: var(--coolgray);
 }
 .card .container .steps_automation .step_3 .addons_list .addon .amt {
