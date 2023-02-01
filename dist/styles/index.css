@@ -92,13 +92,13 @@ body {
   flex-direction: column;
   row-gap: 2rem;
 }
-.card .container .sidebar .steps div:first-of-type {
+.card .container .sidebar .steps > div {
   display: flex;
   align-items: center;
   gap: 1rem;
   justify-content: flex-start;
 }
-.card .container .sidebar .steps div:first-of-type .btn {
+.card .container .sidebar .steps > div .btn {
   background: none;
   border: 1px solid white;
   color: var(--white);
@@ -109,22 +109,22 @@ body {
   font-weight: 600;
   cursor: pointer;
 }
-.card .container .sidebar .steps div:first-of-type .active {
+.card .container .sidebar .steps > div .active {
   color: var(--marineblue);
   background: var(--lightblue);
 }
-.card .container .sidebar .steps div:first-of-type .step_detail {
+.card .container .sidebar .steps > div .step_detail {
   line-height: 0.5;
   text-align: start;
   font-size: 16px;
   text-transform: uppercase;
 }
-.card .container .sidebar .steps div:first-of-type .step_detail .no {
+.card .container .sidebar .steps > div .step_detail .no {
   color: var(--coolgray);
   font-weight: 400;
   font-size: 14px;
 }
-.card .container .sidebar .steps div:first-of-type .step_detail .name {
+.card .container .sidebar .steps > div .step_detail .name {
   color: var(--white);
   font-weight: 600;
 }

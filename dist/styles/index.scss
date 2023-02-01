@@ -84,7 +84,7 @@ body {
                 flex-direction: column;
                 row-gap: 2rem;
 
-                div:first-of-type {
+                &>div {
                     display: flex;
                     align-items: center;
                     gap: 1rem;
