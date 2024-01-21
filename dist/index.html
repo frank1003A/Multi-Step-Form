@@ -15,66 +15,120 @@
     <title>Frontend Mentor | Multi-step form</title>
   </head>
   <body>
+    <h1 class="visually-hidden">Multi Step Form</h1>
     <main class="card">
       <div class="container">
         <div class="sidebar">
-          <nav class="steps">
+          <div class="steps" role="tablist">
             <div>
-              <button class="btn">1</button>
+              <button
+                class="btn"
+                role="tab"
+                aria-selected="true"
+                aria-hidden="false"
+                aria-controls="step1"
+                id="step1-tab"
+                tabindex="-1"
+              >
+                1
+              </button>
               <div class="step_detail">
                 <p class="no">STEP 1</p>
                 <p class="name">Your Info</p>
               </div>
             </div>
             <div>
-              <button class="btn">2</button>
+              <button
+                class="btn"
+                role="tab"
+                aria-selected="false"
+                aria-controls="step2"
+                aria-hidden="true"
+                id="step2-tab"
+                tabindex="-1"
+              >
+                2
+              </button>
               <div class="step_detail">
                 <p class="no">STEP 2</p>
                 <p class="name">Select plan</p>
               </div>
             </div>
             <div>
-              <button class="btn">3</button>
+              <button
+                class="btn"
+                role="tab"
+                aria-selected="false"
+                aria-controls="step3"
+                aria-hidden="true"
+                id="step3-tab"
+                tabindex="-1"
+              >
+                3
+              </button>
               <div class="step_detail">
                 <p class="no">STEP 3</p>
                 <p class="name">Add-ons</p>
               </div>
             </div>
             <div>
-              <button class="btn">4</button>
+              <button
+                class="btn"
+                role="tab"
+                aria-selected="false"
+                aria-controls="step4"
+                aria-hidden="true"
+                id="step4-tab"
+                tabindex="-1"
+              >
+                4
+              </button>
               <div class="step_detail">
                 <p class="no">STEP 4</p>
                 <p class="name">Summary</p>
               </div>
             </div>
-          </nav>
+          </div>
         </div>
         <div class="row">
           <div class="steps_automation">
-            <div class="step_1">
+            <div
+              class="step_1"
+              role="tabpanel"
+              id="step1"
+              aria-labelledby="step1-tab"
+              aria-hidden="false"
+              aria-live="polite"
+              aria-atomic="true"
+              aria-relevant="all"
+            >
               <div class="form">
-                <h1>Personal info</h1>
+                <h1 id="section-header">Personal info</h1>
                 <h2>
                   Please provide your name, email address, and phone number.
                 </h2>
-                <form class="iform" name="iform">
+                <form
+                  class="iform"
+                  name="iform"
+                  aria-describedby="section-header"
+                >
                   <span
                     ><label for="name">Name</label
-                    ><label for="name" id="err_1"
+                    ><label for="name" id="err"
                       >This field is required</label
                     ></span
                   >
-                  <input id="name" placeholder="e.g.Stephen King" />
+                  <input id="name" placeholder="e.g.Stephen King" autofocus />
                   <span
                     ><label for="email">Email Address</label
-                    ><label for="email" id="err_2"
+                    ><label for="email" id="err"
                       >This field is required</label
                     ></span
                   >
                   <input id="email" placeholder="e.g.stephenking@lorem.com" />
                   <span
                     ><label for="phone">Phone Number</label
-                    ><label for="phone" id="err_3"
+                    ><label for="phone" id="err"
                       >This field is required</label
                     ></span
                   >
@@ -82,41 +136,50 @@
                 </form>
               </div>
             </div>
-            <div class="step_2">
+            <div
+              class="step_2"
+              role="tabpanel"
+              id="step2"
+              aria-labelledby="step2-tab"
+              aria-hidden="true"
+              aria-live="polite"
+              aria-atomic="true"
+              aria-relevant="all"
+            >
               <div class="form">
                 <h1>Select your plan</h1>
                 <h2>You have the option of monthly or yearly billing.</h2>
                 <div class="bill_options">
-                  <div class="bill_opt1">
+                  <button class="bill_opt1">
                     <span class="icon">
                       <img src="./assets/images/icon-arcade.svg" alt="" />
                     </span>
                     <div class="detail">
-                      <p>Arcade</p>
-                      <p>$9/mo</p>
-                      <p>2 months free</p>
+                      <p class="plan_name">Arcade</p>
+                      <p class="plan_amount">$9/mo</p>
+                      <p class="plan_free_month">2 months free</p>
                     </div>
-                  </div>
-                  <div class="bill_opt2">
+                  </button>
+                  <button class="bill_opt2">
                     <span class="icon">
                       <img src="./assets/images/icon-advanced.svg" alt="" />
                     </span>
                     <div class="detail">
-                      <p>Advanced</p>
-                      <p>$12/mo</p>
-                      <p>2 months free</p>
+                      <p class="plan_name">Advanced</p>
+                      <p class="plan_amount">$12/mo</p>
+                      <p class="plan_free_month">2 months free</p>
                     </div>
-                  </div>
-                  <div class="bill_opt3">
+                  </button>
+                  <button class="bill_opt3">
                     <span class="icon">
                       <img src="./assets/images/icon-pro.svg" alt="" />
                     </span>
                     <div class="detail">
-                      <p>Pro</p>
-                      <p>$15/mo</p>
-                      <p>2 months free</p>
+                      <p class="plan_name">Pro</p>
+                      <p class="plan_amount">$15/mo</p>
+                      <p class="plan_free_month">2 months free</p>
                     </div>
-                  </div>
+                  </button>
                   <div class="switch-opt">
                     <p>Monthly</p>
                     <label class="switch">
@@ -128,7 +191,16 @@
                 </div>
               </div>
             </div>
-            <div class="step_3">
+            <div
+              class="step_3"
+              role="tabpanel"
+              id="step3"
+              aria-labelledby="step3-tab"
+              aria-hidden="true"
+              aria-live="polite"
+              aria-atomic="true"
+              aria-relevant="all"
+            >
               <div class="form">
                 <h1>Pick add-ons</h1>
                 <h2>Add-ons help enhance your gaming experience.</h2>
@@ -141,7 +213,7 @@
                       </label>
                       <div class="sp">
                         <p>Online service</p>
-                        <p>Access to multiplayer games</p>
+                        <span>Access to multiplayer games</span>
                       </div>
                     </div>
                     <span class="amt"> +$1/mo </span>
@@ -154,7 +226,7 @@
                       </label>
                       <div class="sp">
                         <p>Larger storage</p>
-                        <p>Extra 1TB of cloud save</p>
+                        <span>Extra 1TB of cloud save</span>
                       </div>
                     </div>
                     <span class="amt"> +$2/mo </span>
@@ -167,7 +239,7 @@
                       </label>
                       <div class="sp">
                         <p>Customizable Profile</p>
-                        <p>Custom theme on your profile</p>
+                        <span>Custom theme on your profile</span>
                       </div>
                     </div>
                     <span class="amt"> +$2/mo </span>
@@ -175,7 +247,16 @@
                 </div>
               </div>
             </div>
-            <div class="step_4">
+            <div
+              class="step_4"
+              role="tabpane3"
+              id="step4"
+              aria-labelledby="step4-tab"
+              aria-hidden="true"
+              aria-live="polite"
+              aria-atomic="true"
+              aria-relevant="all"
+            >
               <div class="form">
                 <h1>Finishing up</h1>
                 <h2>Double-check everything looks OK before confirming.</h2>
@@ -184,7 +265,7 @@
                     <div class="plan">
                       <div>
                         <p class="desc"></p>
-                        <button id="change">change</button>
+                        <button id="change_btn">change</button>
                       </div>
                       <p class="amt"></p>
                     </div>
@@ -198,7 +279,7 @@
                   </div>
                 </div>
                 <div class="total" id="tot">
-                  <p class="t_l"></p>
+                  <p class="total_desc"></p>
                   <p class="number"></p>
                 </div>
               </div>
@@ -208,7 +289,7 @@
                 <span class="icon">
                   <img
                     src="./assets/images/icon-thank-you.svg"
-                    alt="Thank_You"
+                    alt="Thank_You_icon"
                   />
                 </span>
                 <h1>Thank you!</h1>

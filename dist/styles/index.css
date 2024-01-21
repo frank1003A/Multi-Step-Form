@@ -25,7 +25,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: hsl(228deg, 100%, 84%);
+  background-color: hsl(228, 100%, 84%);
   display: flex;
   align-items: center;
   min-height: 100vh;
@@ -33,17 +33,14 @@ body {
   justify-content: center;
 }
 
-@-webkit-keyframes slideLeft {
+@keyframes scaleForward {
   0% {
-    opacity: 0;
-    transform: translateX(-250px);
+    transform: translateY(0px);
   }
   100% {
-    opacity: 1;
-    transform: translateX(0);
+    transform: translateY(-5px);
   }
 }
-
 @keyframes slideLeft {
   0% {
     opacity: 0;
@@ -54,21 +51,91 @@ body {
     transform: translateX(0);
   }
 }
-.slide_left {
-  -webkit-animation: slideLeft 1s ease 0s 1 normal forwards;
-          animation: slideLeft 1s ease 0s 1 normal forwards;
+@keyframes slideRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(250px);
+  }
+}
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(250px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+@keyframes slideOutLeft {
+  0% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-250px);
+  }
+}
+@keyframes slideInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(150px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+.slide_in_left {
+  animation: slideLeft 1s ease 0s 1 normal forwards;
+}
+
+.slide_out_right {
+  animation: slideRight 1s ease 0s 1 normal forwards;
+}
+
+.slide_in_right {
+  animation: slideInRight 1s ease 0s 1 normal backwards;
+}
+
+.slide_out_left {
+  animation: slideOutLeft 1s ease 0s 1 normal backwards;
+}
+
+.visually-hidden:not(:focus):not(:active) {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
 }
 
 .card {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 100%);
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
-  padding: 2.5rem;
+  padding: 1.5rem;
   max-width: 900px;
-  min-height: 400px;
+  width: 100%;
   text-align: center;
   justify-content: space-between;
+  transition: 0.5s;
+  /**background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);*/
 }
 .card .container {
   display: flex;
@@ -76,13 +143,15 @@ body {
 .card .container .row {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  width: 100%;
 }
 .card .container .sidebar {
   background-image: url(../assets/images/bg-sidebar-desktop.svg);
   background-repeat: no-repeat;
   background-size: cover;
-  min-width: 0px;
-  padding: 4rem 5.5rem 4rem 2.4rem;
+  min-width: 30%;
+  padding: 4rem;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -91,23 +160,38 @@ body {
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
+  transition: 0.5s;
+  overflow: hidden;
 }
 .card .container .sidebar .steps > div {
   display: flex;
   align-items: center;
   gap: 1rem;
   justify-content: flex-start;
+  animation: slideInBottom 1s ease 0s 1 normal forwards;
+  transition: 0.5s;
+  overflow: hidden;
+}
+.card .container .sidebar .steps > div:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.card .container .sidebar .steps > div:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.card .container .sidebar .steps > div:nth-child(4) {
+  animation-delay: 0.9s;
 }
 .card .container .sidebar .steps > div .btn {
   background: none;
   border: 1px solid white;
   color: var(--white);
   border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
+  width: 40px;
+  height: 40px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  transition: 0.5s;
 }
 .card .container .sidebar .steps > div .active {
   color: var(--marineblue);
@@ -133,6 +217,12 @@ body {
   display: inline-block;
   width: 39px;
   height: 20px;
+  border-radius: inherit;
+}
+.card .container .switch:focus-within {
+  outline-color: var(--purplishblue);
+  outline-width: 2px;
+  outline-style: double;
 }
 .card .container .switch input {
   opacity: 0;
@@ -177,9 +267,10 @@ body {
 .card .container .steps_automation {
   display: flex;
   flex-direction: column;
-  max-width: 600px;
+  /* max-width: 600px; */
   min-height: 450px;
   padding: 2.6rem 6.5rem;
+  width: 100%;
 }
 .card .container .steps_automation .step_1,
 .card .container .steps_automation .step_2,
@@ -242,9 +333,21 @@ body {
   border: 1px solid var(--lightgray);
   color: var(--marineblue);
   font-weight: 500;
+  transition: outline 0.3s;
 }
-.card .container .steps_automation .step_1 form input:hover {
-  border-color: var(--purplishblue);
+.card .container .steps_automation .step_1 form input:focus-visible, .card .container .steps_automation .step_1 form input:focus {
+  transition: 0.3s;
+  outline-color: var(--purplishblue);
+  outline-width: 1px;
+  outline-style: double;
+}
+.card .container .steps_automation .step_1 form .color_change {
+  color: var(--strawberryred);
+}
+.card .container .steps_automation .step_1 form .outline_change {
+  outline-color: var(--strawberryred);
+  outline-width: 1px;
+  outline-style: double;
 }
 .card .container .steps_automation .step_2 .bill_options {
   display: grid;
@@ -252,6 +355,7 @@ body {
   -moz-column-gap: 1rem;
        column-gap: 1rem;
   row-gap: 3rem;
+  transition: 0.5s;
 }
 .card .container .steps_automation .step_2 .bill_options .switch-opt {
   grid-column: 1/4;
@@ -276,11 +380,23 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   cursor: pointer;
+  transition: 0.3s;
 }
 .card .container .steps_automation .step_2 .bill_options .bill_opt1:hover,
 .card .container .steps_automation .step_2 .bill_options .bill_opt2:hover,
 .card .container .steps_automation .step_2 .bill_options .bill_opt3:hover {
-  border: 1px solid var(--purplishblue);
+  transition: 0.3s;
+  outline: 1px double var(--purplishblue);
+  transform: translateY(-5px);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.card .container .steps_automation .step_2 .bill_options .bill_opt1:focus-visible, .card .container .steps_automation .step_2 .bill_options .bill_opt1:focus,
+.card .container .steps_automation .step_2 .bill_options .bill_opt2:focus-visible,
+.card .container .steps_automation .step_2 .bill_options .bill_opt2:focus,
+.card .container .steps_automation .step_2 .bill_options .bill_opt3:focus-visible,
+.card .container .steps_automation .step_2 .bill_options .bill_opt3:focus {
+  outline: 2px double var(--purplishblue);
+  outline-offset: 2px;
 }
 .card .container .steps_automation .step_2 .bill_options .bill_opt1 .detail,
 .card .container .steps_automation .step_2 .bill_options .bill_opt2 .detail,
@@ -309,7 +425,8 @@ body {
 }
 .card .container .steps_automation .step_2 .bill_options .b_active {
   background-color: var(--alabaster);
-  border: 1px solid var(--purplishblue);
+  outline: 1px double var(--purplishblue);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .card .container .steps_automation .step_3 .addons_list {
   display: flex;
@@ -324,41 +441,66 @@ body {
   border: 1px solid var(--lightgray);
   border-radius: 8px;
   justify-content: space-between;
+  transition: 0.3s;
+  /*
+  &:focus-within {
+    outline: 1px double var(--purplishblue);
+  }
+  */
 }
 .card .container .steps_automation .step_3 .addons_list .addon:hover {
-  border: 1px solid var(--purplishblue);
+  outline: 1px double var(--purplishblue);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .card .container .steps_automation .step_3 .addons_list .addon > div {
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 0.1;
   gap: 1rem;
 }
 .card .container .steps_automation .step_3 .addons_list .addon > div .cont {
-  display: block;
+  display: flex;
   position: relative;
-  padding-left: 25px;
-  margin-bottom: 9px;
+  height: 20px;
+  width: 20px;
+  /* padding-left: 25px; */
+  /* margin-bottom: 9px; */
   cursor: pointer;
   font-size: 21px;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+.card .container .steps_automation .step_3 .addons_list .addon > div .cont:focus-within {
+  outline: 1px double var(--purplishblue);
 }
 .card .container .steps_automation .step_3 .addons_list .addon > div .cont input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
-  height: 0;
-  width: 0;
+  /* height: 0; */
+  /* width: 0; */
+  inset: 0;
 }
 .card .container .steps_automation .step_3 .addons_list .addon > div .cont input:checked ~ .checkmark {
   background-color: var(--purplishblue);
 }
 .card .container .steps_automation .step_3 .addons_list .addon > div .cont input:checked ~ .checkmark:after {
   display: block;
+}
+.card .container .steps_automation .step_3 .addons_list .addon > div .cont .checkmark {
+  position: absolute;
+  /* top: -4px; */
+  /* left: 2px; */
+  inset: 0;
+  border-radius: 4px;
+  height: 20px;
+  width: 20px;
+  background-color: none;
+  border: 1px solid #eee;
 }
 .card .container .steps_automation .step_3 .addons_list .addon > div .cont .checkmark:after {
   display: none;
@@ -390,8 +532,9 @@ body {
   color: var(--marineblue);
   font-size: 14px;
   font-weight: 600;
+  line-height: 0;
 }
-.card .container .steps_automation .step_3 .addons_list .addon > div .sp p:nth-child(2) {
+.card .container .steps_automation .step_3 .addons_list .addon > div .sp span {
   color: var(--coolgray);
 }
 .card .container .steps_automation .step_3 .addons_list .addon .amt {
@@ -399,7 +542,7 @@ body {
 }
 .card .container .steps_automation .step_3 .addons_list .p_active {
   background-color: var(--magnolia);
-  border: 1px solid var(--purplishblue);
+  outline: 1px double var(--purplishblue);
 }
 .card .container .steps_automation .step_4 .selections {
   background: var(--magnolia);
@@ -429,9 +572,13 @@ body {
   background: none;
   color: var(--coolgray);
   text-decoration: underline;
-  outline: none;
   border: none;
   cursor: pointer;
+}
+.card .container .steps_automation .step_4 .selections div#g_s .plan > div button:focus-visible, .card .container .steps_automation .step_4 .selections div#g_s .plan > div button:focus {
+  outline-color: var(--purplishblue);
+  outline-width: 2px;
+  outline-style: double;
 }
 .card .container .steps_automation .step_4 div#g_a {
   display: flex;
@@ -479,6 +626,14 @@ body {
   color: var(--coolgray);
   font-weight: 400;
 }
+.card .container .steps_automation .thk_form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 .card .container .right {
   justify-content: flex-end;
 }
@@ -488,7 +643,10 @@ body {
 .card .container .step_btn {
   position: relative;
   display: flex;
-  padding: 0 6.5rem;
+  padding-block: 4px;
+  padding-inline: 6.5rem;
+  width: 100%;
+  justify-content: space-between;
 }
 .card .container .step_btn #nextBtn {
   padding: 1.5rem 4rem;
@@ -499,16 +657,18 @@ body {
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
+  margin-left: auto;
 }
 .card .container .step_btn #prevBtn {
   padding: 1.5rem 4rem;
   border-radius: 8px;
-  color: var(--marineblue);
+  color: var(--coolgray);
   border: none;
   background: var(--white);
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
+  transition: 0.5s;
 }
 
 .flex_end {
@@ -526,10 +686,10 @@ body {
   padding: 1rem;
 }
 .attribution a {
-  color: hsl(228deg, 45%, 44%);
+  color: hsl(228, 45%, 44%);
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   body {
     background-color: var(--magnolia);
   }
@@ -570,39 +730,43 @@ body {
     z-index: 100;
   }
   .card .container .row .step_btn #nextBtn,
-.card .container .row .step_btn #prevBtn {
+  .card .container .row .step_btn #prevBtn {
     border-radius: 3px;
   }
   .card .container .row .steps_automation {
     padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .card .container .row .steps_automation .step_1 h1,
-.card .container .row .steps_automation .step_2 h1,
-.card .container .row .steps_automation .step_3 h1,
-.card .container .row .steps_automation .step_4 h1 {
+  .card .container .row .steps_automation .step_2 h1,
+  .card .container .row .steps_automation .step_3 h1,
+  .card .container .row .steps_automation .step_4 h1 {
     margin: 0;
   }
   .card .container .row .steps_automation .step_1 h2,
-.card .container .row .steps_automation .step_2 h2,
-.card .container .row .steps_automation .step_3 h2,
-.card .container .row .steps_automation .step_4 h2 {
+  .card .container .row .steps_automation .step_2 h2,
+  .card .container .row .steps_automation .step_3 h2,
+  .card .container .row .steps_automation .step_4 h2 {
     margin: 0.5rem 0 1rem;
   }
   .card .container .row .steps_automation .step_1 form span,
-.card .container .row .steps_automation .step_2 form span,
-.card .container .row .steps_automation .step_3 form span,
-.card .container .row .steps_automation .step_4 form span {
+  .card .container .row .steps_automation .step_2 form span,
+  .card .container .row .steps_automation .step_3 form span,
+  .card .container .row .steps_automation .step_4 form span {
     font-size: 11px;
     font-weight: 700;
   }
   .card .container .row .steps_automation .step_1 .form,
-.card .container .row .steps_automation .step_2 .form,
-.card .container .row .steps_automation .step_3 .form,
-.card .container .row .steps_automation .step_4 .form {
+  .card .container .row .steps_automation .step_2 .form,
+  .card .container .row .steps_automation .step_3 .form,
+  .card .container .row .steps_automation .step_4 .form {
     padding: 2rem;
     background-color: var(--white);
     max-width: 300px;
     border-radius: 8px;
+    position: relative;
     z-index: 100;
     margin: 9.9rem 0 0;
   }
@@ -612,8 +776,8 @@ body {
     row-gap: 12px;
   }
   .card .container .row .steps_automation .step_2 .bill_options .bill_opt1,
-.card .container .row .steps_automation .step_2 .bill_options .bill_opt2,
-.card .container .row .steps_automation .step_2 .bill_options .bill_opt3 {
+  .card .container .row .steps_automation .step_2 .bill_options .bill_opt2,
+  .card .container .row .steps_automation .step_2 .bill_options .bill_opt3 {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
@@ -622,8 +786,8 @@ body {
     padding: 0.5rem 1rem;
   }
   .card .container .row .steps_automation .step_2 .bill_options .bill_opt1 .detail,
-.card .container .row .steps_automation .step_2 .bill_options .bill_opt2 .detail,
-.card .container .row .steps_automation .step_2 .bill_options .bill_opt3 .detail {
+  .card .container .row .steps_automation .step_2 .bill_options .bill_opt2 .detail,
+  .card .container .row .steps_automation .step_2 .bill_options .bill_opt3 .detail {
     margin: 0;
   }
   .card .container .row .steps_automation .step_4 .selections div#g_s {
